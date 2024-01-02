@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:online_mobile_banking_system/business_logics/email_vali.dart';
+import 'package:online_mobile_banking_system/business_logics/encrypt/encrypt_data.dart';
 import 'package:online_mobile_banking_system/business_logics/page_controller.dart';
 import 'package:online_mobile_banking_system/business_logics/send_money.dart';
 import 'package:online_mobile_banking_system/ui/styles/style.dart';
@@ -192,10 +193,11 @@ class _SendMoneyState extends State<SendMoney> {
                       Button(
                           text: "Send",
                           onAction: () {
+                            final decrypted_pin = MyEncryptionDecryption.encrypter.decrypt64(_oldPin, iv: MyEncryptionDecryption.iv);
                             int _amount = int.parse(_totalTkController.text);
                             int _pin = int.parse(_pinController.text);
                             print(_pin);
-                            int _oldpinlast = int.parse(_oldPin);
+                            int _oldpinlast = int.parse(decrypted_pin);
                             print(_oldpinlast);
 
                             if (totalBalance1 < _amount) {

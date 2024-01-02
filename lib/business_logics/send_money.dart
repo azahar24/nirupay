@@ -52,6 +52,7 @@ class SendMoneyDB {
         'tk': amount,
         'name': harname,
         'date': date,
+        'sendtype': 'Send Money'
       }).whenComplete(
         () async {},
       );

@@ -6,7 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:online_mobile_banking_system/business_logics/page_controller.dart';
-import 'package:online_mobile_banking_system/ui/views/dashbord/page/transaction.dart';
+import 'package:online_mobile_banking_system/ui/route/route.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/tansaction/transaction.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/transfer/transfer.dart';
 import 'package:online_mobile_banking_system/ui/views/send_money.dart';
 
 class HomePage extends StatefulWidget {
@@ -370,6 +372,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {
                       min.resetTimer();
+                      Get.toNamed(topUpScreen);
                     },
                     child: Column(
                       children: [
@@ -426,6 +429,7 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {
                       min.resetTimer();
+                      //Get.to(Transfer());
                     },
                     child: Column(
                       children: [

@@ -168,6 +168,33 @@ class SignIn extends StatelessWidget {
                           }),
                     ],
                   )),
+
+              SizedBox(
+                height: 15.h,
+              ),    
+
+              InkWell(
+                onTap: () => Get.toNamed(forgetScreen),
+                child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 25.h,
+                        width: 200.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            color: Colors.white),
+                        child: Center(
+                          child: Text(
+                            'Forget Password',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: Color(0xFF030303),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+              ),    
               SizedBox(
                 height: 10.h,
               ),

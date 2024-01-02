@@ -53,7 +53,7 @@ class Out extends StatelessWidget {
                                   Row(
                                     children: [
                                       Text(
-                                        'Send Money',
+                                        data['sendtype'].toString(),
                                         maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 16.sp,

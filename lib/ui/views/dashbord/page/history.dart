@@ -32,32 +32,16 @@ class _HistoryPageState extends State<HistoryPage> {
           padding: EdgeInsets.only(top: 15.h, right: 15.w, left: 15.w),
           child: Column(
             children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.to(BootomNavCon()),
-                    child: Container(
-                      height: 35.h,
-                      width: 35.w,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/img/back.png'),
-                            fit: BoxFit.fill),
-                      ),
+              Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Statistic',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  Text(
-                    'Statistic',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 40.h,
               ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:online_mobile_banking_system/business_logics/encrypt/encrypt_data.dart';
 import 'package:online_mobile_banking_system/business_logics/form.dart';
 import 'package:online_mobile_banking_system/ui/route/route.dart';
 import 'package:online_mobile_banking_system/ui/styles/style.dart';
@@ -22,10 +23,7 @@ class UserForm extends StatelessWidget {
     text: '+88',
   );
 
-  //en
-
-  //final iv = encrypt.IV.fromLength(16);
-  // final encrypter = Encrypter(AES(encrypt.Key.fromUtf8('my 32 length key................')));
+  
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +96,10 @@ class UserForm extends StatelessWidget {
                   height: 10.h,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      height: 90.h,
                       width: 80.w,
                       child: TextFormField(
                         controller: _numCountry,
@@ -121,6 +121,7 @@ class UserForm extends StatelessWidget {
                     ),
                     Container(
                       width: 260.w,
+                      height: 90.h,
                       child: TextFormField(
                         validator: (val) {
                           if (val!.isEmpty) {
@@ -168,10 +169,11 @@ class UserForm extends StatelessWidget {
                 Button(
                     text: "Submit",
                     onAction: () {
-                      // final encrypted = encrypter.encrypt(_pinController.text, iv: iv);
-                      // final decrypted = encrypter.decrypt(encrypted, iv: iv);
-                      // print(encrypted.base64);
-                      // print(decrypted);
+                      final encrypted = MyEncryptionDecryption.encrypter.encrypt(
+                      _pinController.text,
+                      iv: MyEncryptionDecryption.iv);
+                      print(encrypted.base64);
+                      
 
                       String a = '${_numCountry.text}';
                       String b = '${_numController.text}';
@@ -179,8 +181,9 @@ class UserForm extends StatelessWidget {
                       print(_numbar);
                       var _phonenum = box.write('phnum', _numbar);
                       UsersInfo().sendFromDataToDB(
-                          _nameController.text, _numbar, _pinController.text);
-                    }),
+                          _nameController.text, _numbar, encrypted.base64);
+                    }
+                    ),
                 SizedBox(
                   height: 10.h,
                 ),

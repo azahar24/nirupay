@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import 'package:online_mobile_banking_system/business_logics/page_controller.dar
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/acccount.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/history.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/main_home_page.dart';
-import 'package:online_mobile_banking_system/ui/views/dashbord/page/transaction.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/tansaction/transaction.dart';
 
 class BootomNavCon extends StatefulWidget {
   @override
@@ -43,57 +44,90 @@ class _BootomNavConState extends State<BootomNavCon> {
 
   int _currntinx = 0;
 
+  Future _exitDialog(context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Are you sure to close this app?"),
+            content: Row(
+              children: [
+                ElevatedButton(
+                  onPressed: ()=>Get.back(),
+                  child: Text("No"),
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                ElevatedButton(
+                  onPressed: ()=>SystemNavigator.pop(),
+                  child: Text("Yes"),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xFF3F3D9B),
-        unselectedItemColor: Color(0xFFA898F6),
-        backgroundColor: Color(0xFF161730),
-        selectedIconTheme: IconThemeData(size: 40.r),
-        unselectedIconTheme: IconThemeData(size: 20.r),
-        currentIndex: _currntinx,
-        onTap: (int index) {
-          setState(() {
-            _currntinx = index;
-            min.resetTimer();
+    return PopScope(
+      canPop: false,
+      onPopInvoked: ((didPop) {
 
-            
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/home.svg',
-              fit: BoxFit.cover,
+        _exitDialog(context);
+      }),
+
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Color(0xFF3F3D9B),
+          unselectedItemColor: Color(0xFFA898F6),
+          backgroundColor: Color(0xFF161730),
+          selectedIconTheme: IconThemeData(size: 40.r),
+          unselectedIconTheme: IconThemeData(size: 20.r),
+          currentIndex: _currntinx,
+          onTap: (int index) {
+            setState(() {
+              _currntinx = index;
+              min.resetTimer();
+      
+              
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/svg/home.svg',
+                fit: BoxFit.cover,
+              ),
+              label: "Home",
+              backgroundColor: Color(0xFF161730),
             ),
-            label: "Home",
-            backgroundColor: Color(0xFF161730),
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/history.svg',
-              fit: BoxFit.cover,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/svg/history.svg',
+                fit: BoxFit.cover,
+              ),
+              label: "Statistic",
             ),
-            label: "Statistic",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/payment.svg',
-              fit: BoxFit.cover,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/svg/payment.svg',
+                fit: BoxFit.cover,
+              ),
+              label: "Transaction",
             ),
-            label: "Transaction",
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svg/account.svg',
-              fit: BoxFit.cover,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/svg/account.svg',
+                fit: BoxFit.cover,
+              ),
+              label: "Profile",
             ),
-            label: "Profile",
-          ),
-        ],
+          ],
+        ),
+        body: _pages[_currntinx],
       ),
-      body: _pages[_currntinx],
     );
   }
 }

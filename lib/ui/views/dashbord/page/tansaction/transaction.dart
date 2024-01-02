@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/tansaction/in.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/tansaction/out.dart';
 
-import '../../../../const/app_colors.dart';
+import '../../../../../const/app_colors.dart';
 
 class TransactionPage extends StatelessWidget {
   @override
@@ -13,6 +13,8 @@ class TransactionPage extends StatelessWidget {
         child: Scaffold(
           backgroundColor: AppColors.scaffoldColor,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: true,
             backgroundColor: AppColors.crystalblueColor,
             bottom: TabBar(
               tabs: [

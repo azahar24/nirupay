@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:online_mobile_banking_system/business_logics/encrypt/encrypt_data.dart';
 import 'package:online_mobile_banking_system/ui/route/route.dart';
 import 'package:online_mobile_banking_system/ui/views/splash_screen.dart';
 import 'const/app_strings.dart';
@@ -15,6 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   DependencyInjection.init();
+  MyEncryptionDecryption.key;
+  MyEncryptionDecryption.iv;
+  MyEncryptionDecryption.encrypter;
   runApp(App());
 }
 

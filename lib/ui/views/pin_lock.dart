@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:online_mobile_banking_system/business_logics/encrypt/encrypt_data.dart';
 import 'package:online_mobile_banking_system/ui/route/route.dart';
 import 'package:online_mobile_banking_system/ui/styles/style.dart';
 import 'package:online_mobile_banking_system/ui/widgets/button.dart';
-
 
 class PinLock extends StatefulWidget {
   @override
@@ -21,20 +22,16 @@ class _PinLockState extends State<PinLock> {
   final box = GetStorage();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+  RxBool passVisibility = false.obs;
 
   TextEditingController _pinController = TextEditingController();
-
-  
 
   late String _oldPin;
 
   @override
   void initState() {
-    
     try {
       var userId = box.read('uid');
-
 
       FirebaseFirestore.instance
           .collection('user-form-data')
@@ -43,6 +40,7 @@ class _PinLockState extends State<PinLock> {
           .then((value) {
         setState(() {
           _oldPin = value.data()!['pin'];
+          print(_oldPin);
         });
       });
     } catch (err) {
@@ -54,134 +52,149 @@ class _PinLockState extends State<PinLock> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      backgroundColor: Color(0xFF161730),
-      body: Padding(
-        padding: EdgeInsets.only(top: 25.h, right: 15.w, left: 15.w),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Get.toNamed(loginSignUpScreen),
-                      child: Container(
-                        height: 35.h,
-                        width: 35.w,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/img/back.png'),
-                              fit: BoxFit.fill),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 60.w,
-                    ),
-                    Text(
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+          child: Scaffold(
+        backgroundColor: Color(0xFF161730),
+        body: Padding(
+          padding: EdgeInsets.only(top: 25.h, right: 15.w, left: 15.w),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.always,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  
+                  Align(
+                    alignment: Alignment.center,
+                    child: Text(
                       'Let’s Unlock',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w500),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                
-                
-                SizedBox(
-                  height: 10.h,
-                ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  controller: _pinController,
-                  maxLength: 5,
-                  keyboardType: TextInputType.number,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "this field can't be empty";
-                    } else if (val.length < 5) {
-                      return "Minimum 5 Digit Pin";
-                    } else {
-                      return null;
-                    }
-                  },
-                
-                  decoration: AppStyle().textFieldDecoration(
-                      'Enter Pin',),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 32.h,
-                    width: 200.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        color: Colors.white),
-                    child: Center(
-                      child: Text(
-                        'Forget Pin',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          color: Color(0xFF030303),
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Obx(() => TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    controller: _pinController,
+                    maxLength: 5,
+                    obscureText: !passVisibility.value,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "this field can't be empty";
+                      } else if (val.length < 5) {
+                        return "Minimum 5 Digit Pin";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Enter Pin',
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            passVisibility.value = !passVisibility.value;
+                          },
+                          icon: Icon(
+                            Icons.visibility,
+                            color: Colors.white,
+                            size: 15.sp,
+                          )),
+                      filled: true,
+                      fillColor: Color(0xFF202244),
+                      border: UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                          borderSide: BorderSide.none),
+                      hintStyle: TextStyle(
+                        fontSize: 13.sp,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 32.h,
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.white),
+                      child: Center(
+                        child: Text(
+                          'Forget Pin',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Color(0xFF030303),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
-                Button(text: 'Submit', onAction: (){
-                  print(_oldPin);                   
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Button(
+                      text: 'Submit',
+                      onAction: ()  {
+                        final decrypted_pin = MyEncryptionDecryption.encrypter.decrypt64(_oldPin, iv: MyEncryptionDecryption.iv);
+                        print(_oldPin);
                         int _pin = int.parse(_pinController.text);
                         print(_pin);
-                        int _oldpinlast = int.parse(_oldPin);
+                        int _oldpinlast = int.parse(decrypted_pin);
                         print(_oldpinlast);
-                        var output = (_oldpinlast == _pin) ? Get.toNamed(homeScreen) : Fluttertoast.showToast(msg: 'wrong Pin',textColor: Colors.red);
+                        var output = (_oldpinlast == _pin)
+                            ? Get.toNamed(homeScreen)
+                            : Fluttertoast.showToast(
+                                msg: 'wrong Pin', textColor: Colors.red);
                         print(output);
-                }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: RichText(
-                      text: TextSpan(
-                          text: "Don’t have registered yet? ",
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white),
-                          children: [
-                        TextSpan(
-                          text: 'Sign Up',
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFFA898F6),
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => Get.toNamed(signUpScreen),
-                        )
-                      ])),
-                ),
-              ],
+                      }),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: RichText(
+                  //       text: TextSpan(
+                  //           text: "Don’t have registered yet? ",
+                  //           style: TextStyle(
+                  //               fontSize: 13.sp,
+                  //               fontWeight: FontWeight.w300,
+                  //               color: Colors.white),
+                  //           children: [
+                  //         TextSpan(
+                  //           text: 'Sign Up',
+                  //           style: TextStyle(
+                  //             fontSize: 13.sp,
+                  //             fontWeight: FontWeight.w600,
+                  //             color: Color(0xFFA898F6),
+                  //           ),
+                  //           recognizer: TapGestureRecognizer()
+                  //             ..onTap = () => Get.toNamed(signUpScreen),
+                  //         )
+                  //       ])),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }

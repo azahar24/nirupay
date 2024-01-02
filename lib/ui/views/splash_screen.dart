@@ -28,6 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     else {
       Get.toNamed(pinLockScreen);
+      
+      
     }
   }
 

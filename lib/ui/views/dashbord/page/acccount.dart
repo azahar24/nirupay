@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("are u sure to logout?"),
+          title: Text("Are You Sure To Logout?"),
           content: Row(
             children: [
               ElevatedButton(
@@ -36,6 +37,10 @@ class _AccountPageState extends State<AccountPage> {
                   await box.remove('uid');
                   await box.remove('phnum');
                   Get.toNamed(loginSignUpScreen);
+                  Future.delayed(Duration(seconds: 2,),(){
+                    SystemNavigator.pop();
+
+                  });
                 },
                 child: Text("Yes"),
               ),
@@ -91,29 +96,16 @@ class _AccountPageState extends State<AccountPage> {
           padding: EdgeInsets.only(top: 15.h, right: 15.w, left: 15.w),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Container(
-                    height: 35.h,
-                    width: 35.w,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/img/back.png'),
-                          fit: BoxFit.fill),
+              Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Profile',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(
-                    width: 60.w,
-                  ),
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 20.h,
               ),
@@ -150,7 +142,9 @@ class _AccountPageState extends State<AccountPage> {
               ),
               AccountButton(
                   text: 'Password',
-                  onAction: () {},
+                  onAction: () {
+                    Get.toNamed(changepassScreen);
+                  },
                   icon: Icons.key_sharp,
                   iconlast: Icons.arrow_right),
                   SizedBox(

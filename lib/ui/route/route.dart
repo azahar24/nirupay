@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:online_mobile_banking_system/ui/views/auth/change_password.dart';
+import 'package:online_mobile_banking_system/ui/views/auth/forgot_password.dart';
 import 'package:online_mobile_banking_system/ui/views/auth/login_screen.dart';
 import 'package:online_mobile_banking_system/ui/views/auth/verification_code.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/bottom_nav_contoler.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/top_up/top_up.dart';
 import 'package:online_mobile_banking_system/ui/views/onbordingpage.dart';
 import 'package:online_mobile_banking_system/ui/views/pin_lock.dart';
 import 'package:online_mobile_banking_system/ui/views/send_money.dart';
@@ -22,6 +25,10 @@ const String pinLockScreen = '/pinlock-screen';
 const String userFormScreen = '/userform-screen';
 const String sendMoneyScreen = '/send-money-screen';
 const String emailVerifiScreen = '/email-verifi-screen';
+const String topUpScreen = '/top-up-screen';
+const String forgetScreen = '/forget-screen';
+const String changepassScreen = '/changepass-screen';
+
 
 
 List<GetPage> getPages = [
@@ -64,6 +71,18 @@ List<GetPage> getPages = [
   GetPage(
       name: emailVerifiScreen,
       page: () => VerificationCode(),
+  ),
+  GetPage(
+      name: topUpScreen,
+      page: () => TopUpScreen(),
+  ),
+  GetPage(
+      name: forgetScreen,
+      page: () => ForgetPass(),
+  ),
+  GetPage(
+      name: changepassScreen,
+      page: () => ChangePass(),
   ),
 
 
