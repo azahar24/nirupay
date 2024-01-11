@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:online_mobile_banking_system/business_logics/encrypt/encrypt_data.dart';
 import 'package:online_mobile_banking_system/ui/route/route.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/bill/electry_bill.dart';
 import 'package:online_mobile_banking_system/ui/views/splash_screen.dart';
 import 'const/app_strings.dart';
 import 'dependency_injection.dart';
@@ -66,10 +67,11 @@ class MyApp extends StatelessWidget {
           //theme: AppTheme().lightTheme(context),
           //darkTheme: AppTheme().darkTheme(context),
           //themeMode: ThemeMode.light,
+          
           initialRoute: splash,
           getPages: getPages,
           home: SplashScreen(),
-           //home: BootomNavCon(),
+           //home: ElectryBill(),
         );
       },
     );

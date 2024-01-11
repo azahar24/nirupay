@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -98,7 +99,13 @@ class TopUpScreen extends StatelessWidget {
                           }
                         },
                         keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         controller: _numController,
+                        onChanged: (value) {
+                          min.resetTimer();
+                        },
                         maxLength: 11,
                         style: AppStyle().myTextForm,
                         decoration: InputDecoration(
@@ -112,7 +119,7 @@ class TopUpScreen extends StatelessWidget {
                               min.resetTimer();
                               if (_numController.text.length == 0) {
                                 Fluttertoast.showToast(msg: 'this field empty');
-                              } else if(_numController.text.length >=11){
+                              } else if (_numController.text.length >= 11) {
                                 box.write('phonenumtopup', _numbar);
                                 Get.bottomSheet(
                                   Container(

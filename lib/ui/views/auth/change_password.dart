@@ -248,10 +248,13 @@ class _ChangePassState extends State<ChangePass> {
                 onAction: () {
                   int _pin = int.parse(_pinController.text);
                   print(_pin);
-                  final decrypted_pin = MyEncryptionDecryption.encrypter.decrypt64(_oldPin, iv: MyEncryptionDecryption.iv);
+                  final decrypted_pin = MyEncryptionDecryption.encrypter
+                      .decrypt64(_oldPin, iv: MyEncryptionDecryption.iv);
                   int _oldpinlast = int.parse(decrypted_pin);
 
-                  if (_passController.text == _conPassController.text &&
+                  if (_passController.text.length < 8) {
+                    Fluttertoast.showToast(msg: 'minimum 8 digit');
+                  } else if (_passController.text == _conPassController.text &&
                       _oldpinlast == _pin) {
                     //enter fu
                     try {
@@ -259,7 +262,8 @@ class _ChangePassState extends State<ChangePass> {
                           .updatePassword(_conPassController.text)
                           .whenComplete(() {
                         Get.toNamed(homeScreen);
-                        Fluttertoast.showToast(msg: 'Password Change Secc');
+                        Fluttertoast.showToast(
+                            msg: 'Password changed successfully');
                       });
                     } catch (e) {
                       Fluttertoast.showToast(msg: 'Password $e');

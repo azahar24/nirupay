@@ -142,8 +142,14 @@ class SignUp extends StatelessWidget {
                 Button(
                     text: "Sign Up",
                     onAction: () {
-                      box.write('passw', _passController.text);
+                      
+                      if(_passController.text.length <8){
+                        Fluttertoast.showToast(msg: 'minimum 8 digit');
+                      }else{
+                        box.write('passw', _passController.text);
                       Get.to(EmailVerify(_emailController.text));
+
+                      }
                       // _emailController.text.length == 0 &&
                       //         _emailController.text.length == 0
                       //     ? Fluttertoast.showToast(msg: 'this field empty')

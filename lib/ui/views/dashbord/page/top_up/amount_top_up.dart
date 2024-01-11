@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -62,7 +63,13 @@ class AmountTopUpScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                     controller: _amountController,
                     maxLength: 5,
+                    onChanged: (value) {
+                      min.resetTimer();
+                    },
                     keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     validator: (val) {
                       if (val!.isEmpty) {
                         return "this field can't be empty";

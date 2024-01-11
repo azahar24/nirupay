@@ -4,6 +4,8 @@ import 'package:online_mobile_banking_system/ui/views/auth/forgot_password.dart'
 import 'package:online_mobile_banking_system/ui/views/auth/login_screen.dart';
 import 'package:online_mobile_banking_system/ui/views/auth/verification_code.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/bottom_nav_contoler.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/bill/bill.dart';
+import 'package:online_mobile_banking_system/ui/views/dashbord/page/bill/electry_bill.dart';
 import 'package:online_mobile_banking_system/ui/views/dashbord/page/top_up/top_up.dart';
 import 'package:online_mobile_banking_system/ui/views/onbordingpage.dart';
 import 'package:online_mobile_banking_system/ui/views/pin_lock.dart';
@@ -28,6 +30,8 @@ const String emailVerifiScreen = '/email-verifi-screen';
 const String topUpScreen = '/top-up-screen';
 const String forgetScreen = '/forget-screen';
 const String changepassScreen = '/changepass-screen';
+const String billScreen = '/bill-screen';
+const String electryBillScreen = '/electry-screen';
 
 
 
@@ -83,6 +87,14 @@ List<GetPage> getPages = [
   GetPage(
       name: changepassScreen,
       page: () => ChangePass(),
+  ),
+  GetPage(
+      name: billScreen,
+      page: () => BillScreen(),
+  ),
+  GetPage(
+      name: electryBillScreen,
+      page: () => ElectryBill(),
   ),
 
 

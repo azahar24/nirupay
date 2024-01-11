@@ -152,6 +152,9 @@ class _CheckTopUpScreenState extends State<CheckTopUpScreen> {
                 child: TextFormField(
                   style: TextStyle(color: Colors.white),
                   controller: _pinController,
+                  onChanged: (value) {
+                    min.resetTimer();
+                  },
                   maxLength: 5,
                   obscureText: true,
                   keyboardType: TextInputType.number,
@@ -189,12 +192,14 @@ class _CheckTopUpScreenState extends State<CheckTopUpScreen> {
                               title: 'Mobile Recharge',
                               middleText: box.read('amount'),
                               confirm: Button(text: 'Confirm', onAction: () {
+                                min.resetTimer();
                                 TopUpDb().topUp(phone, amount, dateTime);
                               }),
                               cancel: Button(
                                   text: 'Cancel',
                                   onAction: () {
                                     Get.back();
+                                    min.resetTimer();
                                   }));
                         } else {
                           Fluttertoast.showToast(

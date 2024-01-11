@@ -57,7 +57,7 @@ class ForgetPass extends StatelessWidget {
               height: 20.h,
             ),
             Text(
-              'We need your registration Email to send\n you password reset code!',
+              'We need your email to send link to forget your password',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 15.sp,
@@ -79,7 +79,7 @@ class ForgetPass extends StatelessWidget {
               height: 20.h,
             ),
             Button(
-              text: 'Send Code',
+              text: 'Send Link',
               onAction: () async {
                 // myauth.setConfig(
                 //     appEmail: "nirupay@nirupay.com",
@@ -97,7 +97,7 @@ class ForgetPass extends StatelessWidget {
                 //Send Otp
                 
                 try {
-                  await FirebaseAuth.instance.sendPasswordResetEmail(email: _email.text,).whenComplete(() =>Fluttertoast.showToast(msg: 'OTP has been sent'));
+                  await FirebaseAuth.instance.sendPasswordResetEmail(email: _email.text,).whenComplete(() =>Fluttertoast.showToast(msg: 'Link sent successful'));
                 } catch (e) {
                   Fluttertoast.showToast(msg: 'Oops, $e');
                 }

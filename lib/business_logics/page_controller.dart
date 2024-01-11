@@ -6,7 +6,7 @@ import 'package:online_mobile_banking_system/ui/route/route.dart';
 class StaticPageController extends GetxController {
   Timer? timer;
   RxInt _inactiveTimeInSeconds =
-      120.obs; // Set the inactive time limit in seconds
+      40.obs; // Set the inactive time limit in seconds
 
   
 

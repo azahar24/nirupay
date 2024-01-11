@@ -401,6 +401,8 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {
                       min.resetTimer();
+                      
+                      Get.toNamed(billScreen);
                     },
                     child: Column(
                       children: [
@@ -429,7 +431,6 @@ class _HomePageState extends State<HomePage> {
                   InkWell(
                     onTap: () {
                       min.resetTimer();
-                      //Get.to(Transfer());
                     },
                     child: Column(
                       children: [
