@@ -4,6 +4,7 @@
 
 |              App Preview             |
 | :----------------------------------: |
+| <a href="https://www.youtube.com/watch?v=a1K0ZYQYFaY" target="_blank"><img src="[preview.gif](https://github.com/azahar24/nirupay/assets/91890511/fb77ef30-6c61-47bf-8710-35e92189aae1)" width="350"></a> |
 
 ## Getting Started
 
