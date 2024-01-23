@@ -31,6 +31,6 @@
 
 |              Ui Preview             |
 | :----------------------------------: |
-| <a href="" target="_blank"><img src="https://github.com/azahar24/nirupay/assets/91890511/ef307a15-fb0e-40c0-af3a-5ffddac3512f" width="700"></a> |
+| <a href="" target="_blank"><img src="" width="700"></a> |
 ![Screenshot_1706005464 (1)](https://github.com/azahar24/nirupay/assets/91890511/ef307a15-fb0e-40c0-af3a-5ffddac3512f)
 ![Screenshot_1706005819](https://github.com/azahar24/nirupay/assets/91890511/fa470ad8-12f2-458a-80cd-74f03723d768)
