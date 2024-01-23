@@ -19,7 +19,7 @@
 - all transaction screen
 
 **State Management**
-GetX
+- GetX
 
 **Backend**
 - Firebase is used for login and sign up. We also used Firebase storing users information.
