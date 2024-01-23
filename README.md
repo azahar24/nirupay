@@ -4,18 +4,6 @@
 
 |              App Preview             |
 | :----------------------------------: |
-| <a href="" target="_blank"><img src="https://github.com/azahar24/nirupay/assets/91890511/fb77ef30-6c61-47bf-8710-35e92189aae1" width="350"></a> |
+| <a href="" target="_blank"><img src="https://github.com/azahar24/nirupay/assets/91890511/2da024be-410b-4f76-9323-55c112240a69" width="350"></a> |
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-![Screenshot_1703928983](https://github.com/azahar24/nirupay/assets/91890511/fb77ef30-6c61-47bf-8710-35e92189aae1)
+![lv_0_20240123151815](https://github.com/azahar24/nirupay/assets/91890511/2da024be-410b-4f76-9323-55c112240a69)
